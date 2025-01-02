@@ -19,3 +19,18 @@ struct Exercise: Identifiable {
         self.name = name
     }
 }
+
+
+extension Exercise {
+    static var sampleExercises: [Exercise] {
+        [
+            Exercise(name: "Squats"),
+            Exercise(name: "Pushups"),
+            Exercise(name: "Plank"),
+            Exercise(name: "Jumping Jacks"),
+            Exercise(name: "Burpees"),
+            Exercise(name: "Calf Raises"),
+            Exercise(name: "Leg Raises"),
+        ]
+    }
+}
