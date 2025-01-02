@@ -1,14 +1,27 @@
-//
-//  Session.swift
-//  replus
-//
-//  Created by Joshua Delos Santos on 2/1/2025.
-//
+/*
+ Session.swift
+ 
+ Joshua Delos Santos
+ 02/01/2025
+ 
+ */
 
 
 import Foundation
 
+
 struct Session: Identifiable {
     let id = UUID()
     var name: String
+}
+
+
+extension Session {
+    static var sampleSessions: [Session] {
+        [
+            Session(name: "Session 1"),
+            Session(name: "Session 2"),
+            Session(name: "Session 3"),
+        ]
+    }
 }
