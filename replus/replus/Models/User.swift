@@ -11,18 +11,24 @@ import Foundation
 
 
 struct User: Identifiable {
-    let id = UUID()
-    var userName: String
+    let id: UUID
+    var name: String
     var sessions: [Session] = [] // Default empty for new users.
+    
+    init(id: UUID = UUID(), name: String, sessions: [Session]) {
+        self.id = id
+        self.name = name
+        self.sessions = sessions
+    }
 }
 
 
 extension User {
-    static var sampleDate: [User] {
+    static var sampleData: [User] {
         [
-            User(userName: "Bob"),
-            User(userName: "Daniel"),
-            User(userName: "Matthew")
+            User(name: "Bob", sessions: Session.sampleSessions),
+            User(name: "Daniel", sessions: Session.sampleSessions),
+            User(name: "Matthew", sessions: Session.sampleSessions)
         ]
     }
 }
