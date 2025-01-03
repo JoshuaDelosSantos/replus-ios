@@ -13,9 +13,9 @@ import Foundation
 struct User: Identifiable {
     let id: UUID
     var name: String
-    var sessions: [Session] = [] // Default empty for new users.
+    var sessions: [Session]
     
-    init(id: UUID = UUID(), name: String, sessions: [Session]) {
+    init(id: UUID = UUID(), name: String, sessions: [Session] = []) {
         self.id = id
         self.name = name
         self.sessions = sessions
