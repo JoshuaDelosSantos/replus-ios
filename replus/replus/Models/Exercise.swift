@@ -13,10 +13,12 @@ import Foundation
 struct Exercise: Identifiable {
     let id: UUID
     var name: String
+    var lines: [Line]
     
-    init(id: UUID = UUID(), name: String) {
+    init(id: UUID = UUID(), name: String, lines: [Line] = []) {
         self.id = id
         self.name = name
+        self.lines = lines
     }
 }
 
