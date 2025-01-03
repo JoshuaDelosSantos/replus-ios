@@ -15,8 +15,7 @@ struct Session: Identifiable {
     var name: String
     var exercises: [Exercise]
     
-    // Currently initialised using sample data.
-    init(id: UUID = UUID(), name: String, exercises: [Exercise] = Exercise.sampleExercises) {
+    init(id: UUID = UUID(), name: String, exercises: [Exercise] = []) {
         self.id = id
         self.name = name
         self.exercises = exercises
@@ -27,9 +26,9 @@ struct Session: Identifiable {
 extension Session {
     static var sampleSessions: [Session] {
         [
-            Session(name: "Session 1"),
-            Session(name: "Session 2"),
-            Session(name: "Session 3"),
+            Session(name: "Session 1", exercises: Exercise.sampleExercises),
+            Session(name: "Session 2", exercises: Exercise.sampleExercises),
+            Session(name: "Session 3", exercises: Exercise.sampleExercises),
         ]
     }
 }
