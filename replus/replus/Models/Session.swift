@@ -7,28 +7,34 @@
  */
 
 
-import Foundation
+import CoreData
 
 
-struct Session: Identifiable {
-    let id: UUID
-    var name: String
-    var exercises: [Exercise]
-    
-    init(id: UUID = UUID(), name: String, exercises: [Exercise] = []) {
-        self.id = id
-        self.name = name
-        self.exercises = exercises
-    }
+@objc(Session)
+public class Session: NSManagedObject, Identifiable {
+    @NSManaged public var id: UUID
+    @NSManaged public var name: String
+    @NSManaged public var exercises: Set<Exercise>
 }
 
 
 extension Session {
-    static var sampleSessions: [Session] {
-        [
-            Session(name: "Session 1", exercises: Exercise.sampleExercises),
-            Session(name: "Session 2", exercises: Exercise.sampleExercises),
-            Session(name: "Session 3", exercises: Exercise.sampleExercises),
-        ]
+    static func createSampleSessions(in context: NSManagedObjectContext) -> [Session] {
+        let session1 = Session(context: context)
+        session1.id = UUID()
+        session1.name = "Session 1"
+        session1.exercises = Set(Exercise.createSampleExercises(in: context))
+
+        let session2 = Session(context: context)
+        session2.id = UUID()
+        session2.name = "Session 2"
+        session2.exercises = Set(Exercise.createSampleExercises(in: context))
+
+        let session3 = Session(context: context)
+        session3.id = UUID()
+        session3.name = "Session 3"
+        session3.exercises = Set(Exercise.createSampleExercises(in: context))
+
+        return [session1, session2, session3]
     }
 }

@@ -8,37 +8,41 @@
 
 
 import Foundation
+import CoreData
 
 
-struct Line: Identifiable {
-    let id: UUID
-    var reps: Int
-    var weight: Double
-    let date: String
-    
-    init(id: UUID = UUID(), reps: Int, weight: Double, date: String = Line.generateDate()) {
-        self.id = id
-        self.reps = reps
-        self.weight = weight
-        self.date = date
-    }
-    
-    /// Helper function to generate a formatted date.
-    private static func generateDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"  // Set the desired date format
-        return formatter.string(from: Date()) // Use the current date
-    }
+@objc(Line)
+public class Line: NSManagedObject, Identifiable {
+    @NSManaged public var id: UUID
+    @NSManaged public var reps: Int
+    @NSManaged public var weight: Double
+    @NSManaged public var date: Date
 }
 
 
 extension Line {
-    static var sampleLines: [Line] {
-        [
-            // Dates are auto-generated.
-            Line(reps: 10, weight: 50.0),
-            Line(reps: 8, weight: 60.5),
-            Line(reps: 12, weight: 45.0)
-        ]
+    static func createSampleLine(in context: NSManagedObjectContext) -> Line {
+        let line = Line(context: context)  // Core Data's default object creation
+        line.id = UUID()  // Assign a unique ID
+        line.reps = 10  // Default reps
+        line.weight = 50.0  // Default weight
+        line.date = Date()  // Use current date
+        return line
+    }
+    
+    static func createSampleLines(in context: NSManagedObjectContext) -> [Line] {
+        var lines = [Line]()
+        for _ in 0..<3 {
+            let line = createSampleLine(in: context)
+            lines.append(line)
+        }
+        return lines
+        }
+    
+    /// Helper function to format the date when needed.
+    func formattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"  // Set the desired date format
+        return formatter.string(from: self.date) // Format the stored Date
     }
 }
